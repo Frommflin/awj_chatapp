@@ -1,4 +1,5 @@
 import './App.css'
+import Chat from './pages/Chat'
 import Login from './pages/Login'
 import Register from './pages/register'
 
@@ -8,6 +9,7 @@ function App() {
     <>
       {/* <Register/>
       <Login/> */}
+      <Chat/>
     </>
   )
 }
