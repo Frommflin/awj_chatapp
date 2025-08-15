@@ -10,9 +10,9 @@ function App() {
     <>
       <SideNav/>
       <div id='page'>
-        {/* <Register/>
-        <Login/> */}
-        <Chat/>
+        <Login/>
+        {/* <Register/> */}
+        {/* <Chat/> */}
       </div>
     </>
   )

@@ -4,7 +4,6 @@ import './chat.sass'
 const Chat = () => {
   return (
     <>
-      <h1>Messages</h1>
       <div id='chatbox'>
         <div id='messageBox'>
           <div className='messages me'>
