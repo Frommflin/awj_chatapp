@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './login.sass'
 import { useNavigate } from 'react-router-dom'
+import { ChatContext } from '../context/ChatContextProvider'
 
 const Login = () => {
   const navigate = useNavigate()
+  const {logIn} = useContext(ChatContext)
 
   const handleLogIn = (e) => {
     e.preventDefault()
-    
+    logIn('still_testing')
     navigate('/')
   }
 

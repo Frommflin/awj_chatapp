@@ -4,19 +4,25 @@ import SideNav from './components/SideNav'
 import Chat from './pages/Chat'
 import Login from './pages/Login'
 import Register from './pages/register'
+import ProtectedRoute from './components/ProtectedRoute'
+import ChatContextProvider from './context/ChatContextProvider'
 
 function App() {
 
   return (
     <>
-      <SideNav/>
-      <div id='page'>
-        <Routes>
-          <Route path='/signin' element={<Login/>}/>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/' element={<Chat/>}/>
-        </Routes>
-      </div>
+      <ChatContextProvider>
+        <SideNav/>
+        <div id='page'>
+          <Routes>
+            <Route path='/signin' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route element={<ProtectedRoute/>}>
+              <Route path='/' element={<Chat/>}/>
+            </Route>
+          </Routes>
+        </div>
+      </ChatContextProvider>
     </>
   )
 }
