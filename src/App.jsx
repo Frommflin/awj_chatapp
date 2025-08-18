@@ -3,7 +3,7 @@ import './App.css'
 import SideNav from './components/SideNav'
 import Chat from './pages/Chat'
 import Login from './pages/Login'
-import Register from './pages/register'
+import Register from './pages/Register'
 import ProtectedRoute from './components/ProtectedRoute'
 import ChatContextProvider from './context/ChatContextProvider'
 
