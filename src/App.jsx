@@ -1,3 +1,4 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import SideNav from './components/SideNav'
 import Chat from './pages/Chat'
@@ -10,9 +11,11 @@ function App() {
     <>
       <SideNav/>
       <div id='page'>
-        <Login/>
-        {/* <Register/> */}
-        {/* <Chat/> */}
+        <Routes>
+          <Route path='/signin' element={<Login/>}/>
+          <Route path='/register' element={<Register/>}/>
+          <Route path='/' element={<Chat/>}/>
+        </Routes>
       </div>
     </>
   )

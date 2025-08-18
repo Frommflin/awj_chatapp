@@ -1,9 +1,18 @@
 import React from 'react'
 import './register.sass'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
+  const navigate = useNavigate()
+
+  const handleRegistration = (e) => {
+    e.preventDefault()
+
+    navigate('/signin')
+  }
+
   return (
-    <form id='register'> 
+    <form id='register' onSubmit={handleRegistration}> 
         <h1>Register account</h1>
         <div className="input-group mb-3">
             <span id='username' className="input-group-text">Username</span>

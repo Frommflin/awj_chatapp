@@ -1,9 +1,18 @@
 import React from 'react'
 import './login.sass'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+
+  const handleLogIn = (e) => {
+    e.preventDefault()
+    
+    navigate('/')
+  }
+
   return (
-    <form id='login'> 
+    <form id='login' on onSubmit={handleLogIn}> 
         <h1>Sign in</h1>
         <div className="input-group mb-3">
             <span id='username' className="input-group-text">Username</span>
