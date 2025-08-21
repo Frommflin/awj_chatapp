@@ -18,4 +18,15 @@ const registerUser = async (username,password,email,avatar,csrfToken) => {
     return response
 }
 
-export { getCSRF, registerUser }
+const generateJWT = async (username,password,csrfToken) => {
+    const response = await fetch('https://chatify-api.up.railway.app/auth/token',{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({username,password,csrfToken})
+    })
+    return response
+}
+
+export { getCSRF, registerUser, generateJWT }
