@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './register.sass'
 import { useNavigate } from 'react-router-dom'
+import { getCSRF, registerUser } from '../services/authService'
 
 const Register = () => {
   const navigate = useNavigate()
@@ -11,6 +12,14 @@ const Register = () => {
     email: '',
     avatar: ''
   })
+  const [csrfToken, setCsrfToken] = useState(null)
+  const [message, setMessage] = useState(null)
+
+  useEffect(() => {
+    getCSRF().then(response => {
+      setCsrfToken(response.csrfToken)
+    })
+  },[])
 
   const updateUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value})
@@ -28,10 +37,19 @@ const Register = () => {
     }
   }
 
-  const handleRegistration = (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault()
 
-    navigate('/signin')
+    const result = await registerUser(user.username,user.password,user.email,user.avatar,csrfToken)
+    const data = await result.json()
+
+    if(result.ok){
+      alert(data.message)
+      setMessage(null)
+      navigate('/signin')
+    } else {
+      setMessage(data.error)
+    }
   }
 
   return (
@@ -42,6 +60,7 @@ const Register = () => {
             <div className="input-group mb-3">
               <span id='user' className="input-group-text">Username</span>
               <input 
+                required
                 type="text" 
                 name='username'
                 placeholder="Username" 
@@ -55,6 +74,7 @@ const Register = () => {
             <div className="input-group mb-3">
                 <span id='pwd' className="input-group-text">Password</span>
                 <input 
+                  required
                   type="password" 
                   name='password'
                   placeholder="Password" 
@@ -68,6 +88,7 @@ const Register = () => {
             <div className="input-group mb-3">
                 <span id='e-mail' className="input-group-text">E-mail</span>
                 <input 
+                  required
                   type="email" 
                   name='email'
                   placeholder="example@example.com"
@@ -110,7 +131,7 @@ const Register = () => {
             ))}
           </div>
         </div>
-        
+        {message && <div>{message}</div>}
         <button type='submit' className='btn btn-outline-success'>Create account</button>
     </form>
   )
