@@ -26,7 +26,8 @@ const Register = () => {
   }
 
   const randomizeAvatar = () => {
-    setUser({ ...user, avatar: `https://picsum.photos/200?random=${Math.floor(Math.random() * 1000)}`})
+    const imgId = Math.floor(Math.random() * 1000)
+    setUser({ ...user, avatar: `https://picsum.photos/id/${imgId}/200`})
   }
 
   const isValidUrl = (link) => {
