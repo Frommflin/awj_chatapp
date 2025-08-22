@@ -25,17 +25,19 @@ const ChatContextProvider = ( {children} ) => {
         }
     },[isAuthenticated,userData])
 
-    const logIn = (value) => {
+    const logIn = (jwt) => {
         //decoding jwt to get user data
-        const decoded = jwtDecode(value)
+        const decoded = jwtDecode(jwt)
+
         let data = {
             id: decoded.id,
             username: decoded.user,
             email: decoded.email,
-            avatar: decoded.avatar
+            avatar: decoded.avatar,
+            chatId: 'f55b43d0-7ad7-4104-b93e-a3825212bdc8' //setting as fixed for simplicity
         }
         
-        setIsAuthenticated(value)
+        setIsAuthenticated(jwt)
         setUserData(data)
     }
     const logOut = () => {

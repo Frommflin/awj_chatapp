@@ -9,7 +9,7 @@ const Chat = () => {
   const [messages,setMessages] = useState([])
 
   useEffect(() => {
-    getMessages(isAuthenticated).then((data) => {
+    getMessages(isAuthenticated,userData.chatId).then((data) => {
       setMessages(data)
     })
   },[])
