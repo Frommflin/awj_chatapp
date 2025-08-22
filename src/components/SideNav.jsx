@@ -2,12 +2,14 @@ import React, { useContext } from 'react'
 import classes from './sidenav.module.sass'
 import { NavLink } from 'react-router-dom'
 import { ChatContext } from '../context/ChatContextProvider'
+import UserCard from './UserCard'
 
 const SideNav = () => {
   const {isAuthenticated,logOut} = useContext(ChatContext)
   return (<>
     <nav id={classes.sidenav}>
       <h1>ChityChaty</h1>
+      {isAuthenticated && <UserCard/>}
       <ul>
         {isAuthenticated ? (
           <li><a href="#" onClick={logOut}>Sign out</a></li>
