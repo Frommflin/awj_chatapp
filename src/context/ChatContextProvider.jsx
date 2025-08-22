@@ -7,7 +7,9 @@ const ChatContextProvider = ( {children} ) => {
     const [isAuthenticated,setIsAuthenticated] = useState(() => {
         return sessionStorage.getItem('jwt') || null
     })
-    const [userData, setUserData] = useState(null)
+    const [userData, setUserData] = useState(() =>{
+        return JSON.parse(sessionStorage.getItem('user')) || null
+    })
 
     useEffect(() => {
         if(isAuthenticated == null){
@@ -15,28 +17,29 @@ const ChatContextProvider = ( {children} ) => {
         } else {
             sessionStorage.setItem('jwt', isAuthenticated)
         }
-    },[isAuthenticated])
+
+        if(userData == null){
+            sessionStorage.removeItem('user')
+        } else {
+            sessionStorage.setItem('user', JSON.stringify(userData))
+        }
+    },[isAuthenticated,userData])
 
     const logIn = (value) => {
-        setIsAuthenticated(value)
-        handleToken(value)
-    }
-    const logOut = () => {
-        setIsAuthenticated(null)
-        setUserData(null)
-    }
-    const handleToken = (jwt) =>{
         //decoding jwt to get user data
-        const decoded = jwtDecode(jwt);
-        console.log(decoded)
-
+        const decoded = jwtDecode(value)
         let data = {
             username: decoded.user,
             email: decoded.email,
             avatar: decoded.avatar
         }
-        console.log(data)
+        
+        setIsAuthenticated(value)
         setUserData(data)
+    }
+    const logOut = () => {
+        setIsAuthenticated(null)
+        setUserData(null)
     }
     return (
         <ChatContext.Provider value={{
