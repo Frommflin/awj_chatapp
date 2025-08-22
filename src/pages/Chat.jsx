@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import purify from 'dompurify'
 import './chat.sass'
 import { getMessages } from '../services/chatService'
 import { ChatContext } from '../context/ChatContextProvider'
@@ -19,10 +20,9 @@ const Chat = () => {
         <div id='messageBox'>
           {messages && messages.map(message => {
             let classes = message.userId == userData.id ? 'messages me' : 'messages'
+            let sanitizedMessage = purify.sanitize(message.text)
             return (
-            <div className={classes} key={message.id}>
-              {message.text}
-            </div>
+              <div className={classes} key={message.id} dangerouslySetInnerHTML={{__html: sanitizedMessage}}></div>
             )
           })}
         </div>
