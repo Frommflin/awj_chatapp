@@ -11,4 +11,16 @@ const getMessages = async (jwt,id) => {
     return await response.json()
 }
 
-export { getMessages }
+const sendMessage = async (jwt,text,conversationId) => {
+    const response = await fetch(baseUrl,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${jwt}`
+      },
+      body: JSON.stringify({text,conversationId})
+    })
+    return response
+}
+
+export { getMessages, sendMessage }
