@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './chat.sass'
+import { getMessages } from '../services/chatService'
+import { ChatContext } from '../context/ChatContextProvider'
 
 const Chat = () => {
+  const {isAuthenticated,userData} = useContext(ChatContext)
+  const [messages,setMessages] = useState([])
+
+  useEffect(() => {
+    getMessages(isAuthenticated).then((data) => {
+      setMessages(data)
+    })
+  },[])
+
   return (
     <>
       <div id='chatbox'>
         <div id='messageBox'>
-          <div className='messages me'>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, expedita voluptates aliquam molestiae esse quia repudiandae ullam animi velit. Consequatur maiores, eaque amet animi illo labore, est sunt veritatis adipisci sequi enim ducimus harum quibusdam?
-          </div>
-          <div className='messages'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, porro!
-          </div>
-          <div className='messages me'>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad autem, beatae labore natus deserunt, dolorem vero consequuntur atque perferendis minus error eos consequatur cumque obcaecati.
-          </div>
+          {messages && messages.map(message => {
+            let classes = message.userId == userData.id ? 'messages me' : 'messages'
+            return (
+            <div className={classes} key={message.id}>
+              {message.text}
+            </div>
+            )
+          })}
         </div>
         <form>
           <div className="input-group">

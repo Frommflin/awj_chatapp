@@ -29,6 +29,7 @@ const ChatContextProvider = ( {children} ) => {
         //decoding jwt to get user data
         const decoded = jwtDecode(value)
         let data = {
+            id: decoded.id,
             username: decoded.user,
             email: decoded.email,
             avatar: decoded.avatar
