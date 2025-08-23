@@ -32,7 +32,7 @@ const Chat = () => {
         <div id='messageBox'>
           {messages && messages.map(message => {
             if(message){
-              return (<Message key={message.id} data={message} />)
+              return (<Message key={message.id} data={message} update={setNewMessage} />)
             }
           })}
         </div>
