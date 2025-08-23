@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import purify from 'dompurify'
 import './chat.sass'
 import { getMessages, sendMessage } from '../services/chatService'
 import { ChatContext } from '../context/ChatContextProvider'
+import Message from '../components/Message'
 
 const Chat = () => {
   const {isAuthenticated,userData} = useContext(ChatContext)
@@ -31,11 +31,9 @@ const Chat = () => {
       <div id='chatbox'>
         <div id='messageBox'>
           {messages && messages.map(message => {
-            let classes = message.userId == userData.id ? 'messages me' : 'messages'
-            let sanitizedMessage = purify.sanitize(message.text)
-            return (
-              <div className={classes} key={message.id} dangerouslySetInnerHTML={{__html: sanitizedMessage}}></div>
-            )
+            if(message){
+              return (<Message key={message.id} data={message} />)
+            }
           })}
         </div>
         <form onSubmit={handleSend}>
